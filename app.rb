@@ -6,6 +6,8 @@ require './lib/slack_app_config'
 require './lib/fortunes'
 
 enable :logging
+set :public_folder, './public'
+
 FORTUNES = Fortunes.new("data/fortunes.txt")
 def setup_load_files
   puts "Picking up new files"
