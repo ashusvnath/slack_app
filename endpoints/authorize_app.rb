@@ -6,7 +6,6 @@ get '/authorize_app' do
                                code: request["code"]
     })
     oauth_token = JSON.parse(response.body)['access_token']
-    logger.info(response.body)
     logger.info("Oauth Authorization %s" % [oauth_token.nil? ? "failed" : "successfull"])
   end
   [200, [""]]
