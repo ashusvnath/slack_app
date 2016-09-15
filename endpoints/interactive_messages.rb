@@ -7,7 +7,7 @@ post '/interactive_messages' do
 	data = JSON.parse(request["payload"])
 	user = data["user"]["id"]
 	team = data["team"]["id"]
-	if UsersRepository.registered?(user, team)
+	if USERS_REPOSITORY.registered?(user, team)
 		"Please Sign in with slack here : #{make_user_auth_endpoint}"
 	else
 		status 200
