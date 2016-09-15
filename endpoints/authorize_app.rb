@@ -5,7 +5,7 @@ get '/authorize_app' do
                                client_secret: SlackAppConfig.slack_client_secret,
                                code: request["code"]
     })
-    oauth_token = JSON.parse(response.body)['token']
+    oauth_token = JSON.parse(response.body)['access_token']
     logger.info(response.body)
     logger.info("Oauth Authorization %s" % [oauth_token.nil? ? "failed" : "successfull"])
   end
