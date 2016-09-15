@@ -6,4 +6,6 @@ gem "httparty"
 
 group :development do
 	gem "sinatra-contrib"
+	gem "pry"
+	gem "pry-byebug"
 end
