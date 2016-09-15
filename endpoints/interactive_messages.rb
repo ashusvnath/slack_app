@@ -1,5 +1,5 @@
 def make_user_auth_endpoint
-	"https://slack.com/oauth/authorize?scope=identity.basic,identity.email&client_id=#{SlackAppConfig.slack_client_id}&state=user"
+	"https://slack.com/oauth/authorize?scope=identity.basic,identity.email&client_id=#{SlackAppConfig.slack_client_id}&state=#{USER_STATE}"
 end
 
 post '/interactive_messages' do

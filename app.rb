@@ -26,3 +26,4 @@ end
 setup_load_files("lib", "endpoints")
 FORTUNES = Fortunes.new("data/fortunes.txt")
 USERS_REPOSITORY = UsersRepository.new
+USER_STATE = "user"
