@@ -3,11 +3,12 @@ def make_user_auth_endpoint
 end
 
 post '/interactive_messages' do
-	logger.info request.params
 	data = JSON.parse(request["payload"])
 	user = data["user"]["id"]
 	team = data["team"]["id"]
-	if USERS_REPOSITORY.registered?(user, team)
+	email = USERS_REPOSITORY.registered?(user, team)
+	logger.info(email)
+	if email.nil?
 		"Please Sign in with slack here : #{make_user_auth_endpoint}"
 	else
 		status 200
