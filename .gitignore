@@ -1,0 +1,4 @@
+*.pid
+*.out
+*.log
+app.env
