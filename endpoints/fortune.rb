@@ -3,6 +3,7 @@ post '/fortune' do
   headers('Content-Type' => "application/json")
   JSON.dump({
               text: text,
+              response_type: "in_channel",
               "attachments": [{
                                 text: "Did your like this fortune ?",
                                 callback_id: "fortune_vote",
