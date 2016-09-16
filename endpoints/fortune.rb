@@ -1,4 +1,5 @@
 post '/fortune' do
+  logger.info(request.body.read)
   index, text = FORTUNES.next
   headers('Content-Type' => "application/json")
   JSON.dump({
