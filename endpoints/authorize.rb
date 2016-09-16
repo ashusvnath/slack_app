@@ -11,6 +11,9 @@ get '/authorize' do
       if key && email && data = PENDING_AUTH.dequeue(key)
         if data
           logger.info("Replacing ephemeral message")
+          ["subtype", "type", "fallback", "ts", "bot_id"].each do |data_key|
+            data[:message].delete(data_key)
+          end
           logger.info("Original message is being sent over post is : #{data[:message]}")
           response = HTTParty.post(data[:url], body: data[:message], headers: {"Content-Type" => "application/json"})
           logger.info(response)
