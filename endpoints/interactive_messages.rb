@@ -5,8 +5,9 @@ post '/interactive_messages' do
 	if email.nil?
 		logger.info("User not authorized. Enqueuing response.")
 		PENDING_AUTH.enqueue(key, data["response_url"], data["original_message"])
+		headers({"Content-Type" => "application/json"})
 		JSON.dump({
-			message: "Please :slack: *Sign in with slack* here : #{SlackAuthClient::USER_AUTH_ENDPOINT}",
+			message: "Please :slack: *Sign in with slack* here : https://#{request.host}/sign_into_slack",
 			response_type: 'ephemeral'
 		})
 	else
