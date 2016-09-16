@@ -18,7 +18,7 @@ class SlackAuthClient
     response = HTTParty.post(USER_AUTH_ENDPOINT, body: {token: token})
     user_data = JSON.parse(response.body) rescue nil
     user_data ?
-      [AuthKey.new(user_data["user"]["id"], user_data["team"]["id"]), user_data["user"]["email"]] :
+      [AuthKey.make(user_data["user"]["id"], user_data["team"]["id"]), user_data["user"]["email"]] :
       [nil, nil]
   end
 end
