@@ -11,7 +11,8 @@ get '/authorize' do
       if key && email && data = PENDING_AUTH.dequeue(key)
         if data
           logger.info("Replacing ephemeral message")
-          HTTParty.post(data[:url], data[:message])
+          response = HTTParty.post(data[:url], data[:message])
+          logger.info(response.inspect)
         end
       end
       log_msg(logger, "User Authorization", USERS_REPOSITORY.registered?(key))
