@@ -1,18 +1,16 @@
-def make_user_auth_endpoint
-	"https://slack.com/oauth/authorize?scope=identity.basic,identity.email&client_id=#{SlackAppConfig.slack_client_id}&state=#{USER_STATE}"
-end
-
 post '/interactive_messages' do
 	data = JSON.parse(request["payload"])
-	user = data["user"]["id"]
-	team = data["team"]["id"]
-	email = USERS_REPOSITORY.registered?(user, team)
-	logger.info(email)
+	key = AuthKey.make(data["user"]["id"], data["team"]["id"])
+	email = USERS_REPOSITORY.registered?(key)
 	if email.nil?
-		"Please Sign in with slack here : #{make_user_auth_endpoint}"
+		logger.info("User not authorized. Enqueuing response.")
+		PendingAuth.enqueue(key, data["response_url"], data["original_message"])
+		JSON.dumps({
+			message: "Please :slack: *Sign in with slack* here : #{SLACK_USER_AUTH_END_POINT}",
+			response_type: 'ephemeral'
+		})
 	else
-		status 200
-		headers("Content-Length" => "0")
+		logger.info("Found #{email} for #{key}")
 		""
 	end
 end

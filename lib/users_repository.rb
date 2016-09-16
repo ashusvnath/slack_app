@@ -3,16 +3,11 @@ class UsersRepository
 		@users_registry = {}
 	end
 
-	def registered?(user, team)
-		@users_registry[make_key(user, team)]
+	def registered?(key)
+		@users_registry[key]
 	end
 
-	def register(user, team, email)
-		@users_registry[make_key(user, team)] = email
-	end
-
-	private
-	def make_key(user, team)
-		"#{user}_#{team}".to_sym
+	def register(key, email)
+		@users_registry[key] = email
 	end
 end

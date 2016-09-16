@@ -26,3 +26,7 @@ post '/fortune' do
               }]
   })
 end
+
+post '/stats' do
+  message = FORTUNES.stats
+end

@@ -6,14 +6,19 @@ get '/authorize' do
   if code = request.params["code"]
     state = request.params["state"]
     if state == USER_STATE
-      user, team, email = SlackAuthClient.new.auth_user(code)
-      USERS_REPOSITORY.register(user, team, email)
-      log_msg(logger, "User Authorization ", USERS_REPOSITORY.registered?(user, team))
+      key, email = SLACK_AUTH_CLIENT.auth_user(code)
+      USERS_REPOSITORY.register(key, email)
+      if key && email && data = PendingAuth.dequeue(key)
+        if data
+          logger.info("Replacing ephemeral message")
+          HTTParty.post(data[:url], data[:message])
+        end
+      end
+      log_msg(logger, "User Authorization", USERS_REPOSITORY.registered?(key))
     else
-      token = SlackAuthClient.new.auth(code)
-      log_msg(logger, "App Authorization ", !token.nil?)
+      token = SLACK_AUTH_CLIENT.auth(code)
+      log_msg(logger, "App Authorization", !token.nil?)
     end
   end
-  [200, [""]]
+  ""
 end
-

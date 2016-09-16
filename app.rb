@@ -28,6 +28,8 @@ end
 setup_load_files("lib", "endpoints")
 FORTUNES = Fortunes.new("data/fortunes.txt")
 USERS_REPOSITORY = UsersRepository.new
+PENDING_AUTH = PendingAuth.new
+SLACK_AUTH_CLIENT = SlackAuthClient.new
 USER_STATE = "user"
-SLACK_APP_AUTH_QUERY_PARAMS=URI.encode_www_form({scopes: 'commands', client_id: SlackAppConfig.slack_client_id})
+SLACK_APP_AUTH_QUERY_PARAMS=URI.encode_www_form({scopes: 'incoming-webhook,commands', client_id: SlackAppConfig.slack_client_id})
 SLACK_USER_AUTH_QUERY_PARAMS=URI.encode_www_form({scopes: 'identity.basic,identity.email', client_id: SlackAppConfig.slack_client_id, :state => USER_STATE})
