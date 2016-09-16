@@ -6,7 +6,7 @@ post '/interactive_messages' do
 		logger.info("User not authorized. Enqueuing response.")
 		PENDING_AUTH.enqueue(key, data["response_url"], data["original_message"])
 		JSON.dumps({
-			message: "Please :slack: *Sign in with slack* here : #{SLACK_USER_AUTH_END_POINT}",
+			message: "Please :slack: *Sign in with slack* here : #{SlackAuthClient::SLACK_USER_AUTH_END_POINT}",
 			response_type: 'ephemeral'
 		})
 	else
