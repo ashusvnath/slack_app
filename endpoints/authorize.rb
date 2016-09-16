@@ -8,7 +8,7 @@ get '/authorize' do
     if state == USER_STATE
       key, email = SLACK_AUTH_CLIENT.auth_user(code)
       USERS_REPOSITORY.register(key, email)
-      if key && email && data = PendingAuth.dequeue(key)
+      if key && email && data = PENDING_AUTH.dequeue(key)
         if data
           logger.info("Replacing ephemeral message")
           HTTParty.post(data[:url], data[:message])
