@@ -7,7 +7,7 @@ post '/interactive_messages' do
 		PENDING_AUTH.enqueue(key, data["response_url"], data["original_message"])
 		headers({"Content-Type" => "application/json"})
 		JSON.dump({
-			text: "Please :slack: *Sign in with slack* here : https://#{request.host}/sign_into_slack",
+			text: "Please :slack: *Sign in with slack* here : https://#{request.host}/#{SIGN_IN_WITH_SLACK}",
 			response_type: 'ephemeral'
 		})
 	else

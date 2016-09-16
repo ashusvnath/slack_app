@@ -18,4 +18,8 @@ class Fortunes
 		@votes[index] ||= 0
 		@votes[index] += 1
 	end
+
+	def stats
+		@votes.keys.map{|index| {fortune: @fortunes[index], score: @votes[index]}}
+	end
 end

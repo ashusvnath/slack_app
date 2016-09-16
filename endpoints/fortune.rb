@@ -12,13 +12,13 @@ post '/fortune' do
                                 attachment_type: "default",
                                 actions: [
                                   {
-                                    "name": "vote_#{index}",
+                                    "name": "#{index}",
                                     "text": ":thumbsup:",
                                     "type": "button",
                                     "value": "up"
                                   },
                                   {
-                                    "name": "vote_#{index}",
+                                    "name": "#{index}",
                                     "text": ":thumbsdown:",
                                     "type": "button",
                                     "value": "down"
@@ -28,6 +28,7 @@ post '/fortune' do
   })
 end
 
-post '/stats' do
+get '/stats' do
   message = FORTUNES.stats
+  JSON.dump(message)
 end
