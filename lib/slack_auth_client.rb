@@ -1,6 +1,6 @@
 class SlackAuthClient
-  GENERAL_AUTH_ENDPOINT = response = "https://slack.com/api/oauth.access"
-  USER_AUTH_ENDPOINT = response = "https://slack.com/api/users.identity"
+  GENERAL_AUTH_ENDPOINT = "https://slack.com/api/oauth.access"
+  USER_AUTH_ENDPOINT = "https://slack.com/api/users.identity"
   def initialize
     @partial_credentails = {
       client_id: SlackAppConfig.slack_client_id,

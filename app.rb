@@ -2,9 +2,11 @@ require 'sinatra'
 require 'sinatra/reloader' if settings.development?
 require 'json'
 require 'httparty'
+require 'uri'
 
 enable :logging
 set :public_folder, './public'
+set :views, './templates'
 
 def setup_load_files(*paths)
   puts "Picking up new files"
@@ -27,3 +29,5 @@ setup_load_files("lib", "endpoints")
 FORTUNES = Fortunes.new("data/fortunes.txt")
 USERS_REPOSITORY = UsersRepository.new
 USER_STATE = "user"
+SLACK_APP_AUTH_QUERY_PARAMS=URI.encode_www_form({scopes: 'commands', client_id: SlackAppConfig.slack_client_id})
+SLACK_USER_AUTH_QUERY_PARAMS=URI.encode_www_form({scopes: 'identity.basic,identity.email', client_id: SlackAppConfig.slack_client_id, :state => USER_STATE})
